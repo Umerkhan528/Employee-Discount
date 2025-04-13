@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "16822394471",
+    "project_id": "employee-discount-4f875",
+    "storage_bucket": "employee-discount-4f875.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:16822394471:android:07696aaf73076acd717ec2",
+        "android_client_info": {
+          "package_name": "com.example.discount_portal_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCALPHY9xJdz3-VhqrSzWYbahsPXY3xkBc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
