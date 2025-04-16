@@ -1,3 +1,5 @@
+// company_home.dart file in company folder which is in screen folder
+
 import 'package:discount_portal_app/provider/shop_provider.dart';
 import 'package:discount_portal_app/screens/auth/login_screen.dart';
 import 'package:discount_portal_app/screens/company/add_discount.dart';

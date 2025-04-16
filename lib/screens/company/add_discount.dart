@@ -1,3 +1,5 @@
+// add_discount.dart file in company folder which is in screen folder
+
 import 'package:discount_portal_app/models/shop_data.dart';
 import 'package:discount_portal_app/provider/shop_provider.dart';
 import 'package:flutter/material.dart';

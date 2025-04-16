@@ -1,3 +1,5 @@
+//  Shop_data.dart file in data folder
+
 final List<Map<String, dynamic>> shopData = [
   {
     "id": "1",

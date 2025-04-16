@@ -1,3 +1,5 @@
+//  Shop_data.dart file in model folder
+
 class Shop {
   final String id;
   final String name;

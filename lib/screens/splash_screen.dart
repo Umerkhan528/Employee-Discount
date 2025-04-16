@@ -1,9 +1,10 @@
-import 'dart:async';
+// splash_screen.dart
+
+import 'package:flutter/material.dart';
 import 'package:discount_portal_app/screens/auth/login_screen.dart';
 import 'package:discount_portal_app/screens/company/company_home.dart';
 import 'package:discount_portal_app/screens/employee/employee_home.dart';
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:discount_portal_app/services/auth_service.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -13,55 +14,68 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  final AuthService _authService = AuthService();
+
   @override
   void initState() {
     super.initState();
+    _navigateToHome();
+  }
 
-    Timer(const Duration(seconds: 3), () {
-      final user = FirebaseAuth.instance.currentUser;
+  Future<void> _navigateToHome() async {
+    await Future.delayed(const Duration(seconds: 2));
 
-      if (user != null) {
-        final role = user.displayName;
+    final userData = await _authService.getCurrentUserData();
 
-        if (role == 'company') {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (_) => const CompanyHomeScreen()),
-          );
-        } else {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (_) => const EmployeeHomeScreen()),
-          );
-        }
-      } else {
+    if (userData != null) {
+      final role = userData['role'];
+
+      if (role == 'company') {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (_) => LoginScreen()),
+          MaterialPageRoute(builder: (_) => const CompanyHomeScreen()),
         );
+      } else if (role == 'employee') {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const EmployeeHomeScreen()),
+        );
+      } else {
+        await _authService.signOut();
+        _goToLogin();
       }
-    });
+    } else {
+      _goToLogin();
+    }
+  }
+
+  void _goToLogin() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => LoginScreen()),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.card_giftcard, size: 32, color: Colors.black87),
-            SizedBox(width: 10),
-            Text(
+            const Icon(Icons.card_giftcard, size: 64, color: Colors.blue),
+            const SizedBox(height: 20),
+            const Text(
               'EmployeePerks',
               style: TextStyle(
                 fontSize: 24,
-                fontWeight: FontWeight.w500,
-                fontFamily: 'Roboto',
-                color: Colors.black87,
+                fontWeight: FontWeight.bold,
+                color: Colors.blue,
               ),
             ),
+            const SizedBox(height: 20),
+            CircularProgressIndicator(color: Colors.blue),
           ],
         ),
       ),
